@@ -6,16 +6,17 @@ namespace DynamicWindows.ViewModels
     public class JsWindowViewModel : ViewModelBase<IJSObjectReference>
     {
         private JsWindowModel _model;
-        public JsWindowViewModel(int id, IJSObjectReference canvas) : base(canvas) 
+        public JsWindowModel Model
         {
-            _model = new JsWindowModel()
-            {
-                Id = id,
-            };
+            get => _model;
         }
         public int Id
         {
             get => _model.Id;
+        }
+        public JsWindowViewModel(JsWindowModel window, IJSObjectReference canvas) : base(canvas) 
+        {
+            _model = window;
         }
 
         public override async void OnContextChanged(IJSObjectReference? context)

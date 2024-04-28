@@ -1,10 +1,10 @@
 import { Canvas } from './canvas.js';
 import * as Event from './events.js';
 
-function createCanvas(id) {
+function createCanvas(parameters) {
     return new Promise((resolve, reject) => {
         try {
-            resolve(new Canvas(id));
+            resolve(new Canvas(parameters));
         } catch (error) {
             reject(error);
         }

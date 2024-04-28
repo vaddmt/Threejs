@@ -68,9 +68,13 @@ namespace DynamicWindows.ViewModels
             try
             {
                 int key = _counter++;
+                JsWindowModel window = new JsWindowModel() 
+                {
+                    Id = key
+                };
 
-                IJSObjectReference jsCanvas = await _jsModule.InvokeAsync<IJSObjectReference>("createCanvas", key);
-                _jsWindows.Add(key, new JsWindowViewModel(key, jsCanvas));
+                IJSObjectReference jsCanvas = await _jsModule.InvokeAsync<IJSObjectReference>("createCanvas", window);
+                _jsWindows.Add(key, new JsWindowViewModel(window, jsCanvas));
             }
             catch
             {

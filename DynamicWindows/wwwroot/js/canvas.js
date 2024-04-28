@@ -24,8 +24,9 @@ class Canvas {
     _windowX;
     _windowY;
 
-    constructor(id) {
-        this._id = id;
+    constructor(parameters) {
+        this._id = parameters.id;
+
         this.initCanvas();
         this.initEvents();
 
