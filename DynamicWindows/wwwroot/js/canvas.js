@@ -102,10 +102,15 @@ class Canvas {
         this._buttonClose.removeEventListener('click', this._onCloseClickEvent);
     }
 
-    onTopbarMouseDown(event) {
-        this._isWindowDrag = true;
+    onMouseDown(event) {
         this._windowX = event.offsetX;
         this._windowY = event.offsetY;
+        this._wrapper.appendChild(this._window); // reappend child to put it to the end of the list
+    }
+
+    onTopbarMouseDown(event) {
+        this._isWindowDrag = true;
+        this.onMouseDown(event);
     }
 
     onTopbarMouseMove(event) {
@@ -123,8 +128,7 @@ class Canvas {
 
     onResizeMouseDown(event) {
         this._isWindowResize = true;
-        this._windowX = event.offsetX;
-        this._windowY = event.offsetY;
+        this.onMouseDown(event);
     }
 
     onResizeMouseMove(event) {
