@@ -1,5 +1,20 @@
 import { Canvas } from './canvas.js';
-import * as Event from './events.js';
+import * as EVENT from './events.js';
+import { population } from './common/population.js';
+import { scene } from './common/scene.js';
+
+function load() {
+    return new Promise((resolve, reject) => {
+        try {
+            population.initialize();
+            scene.initialize();
+            resolve();
+        } catch (error) {
+            reject(error);
+        }
+    });
+    scene.initialize();
+}
 
 function createCanvas(parameters) {
     return new Promise((resolve, reject) => {
@@ -12,9 +27,9 @@ function createCanvas(parameters) {
 }
 
 function readCanvasEvent() {
-    const json = JSON.stringify(Event.EventMetaData);
-    Event.clear();
+    const json = JSON.stringify(EVENT.EventMetaData);
+    EVENT.clear();
     return json;
 }
 
-export { createCanvas, readCanvasEvent }
+export { load, createCanvas, readCanvasEvent }

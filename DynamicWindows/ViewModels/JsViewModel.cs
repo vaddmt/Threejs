@@ -47,6 +47,7 @@ namespace DynamicWindows.ViewModels
             try
             {
                 _jsModule = await context.InvokeAsync<IJSObjectReference>("import", "./js/main.js");
+                await _jsModule.InvokeVoidAsync("load");
             }
             catch (JSDisconnectedException ex)
             {

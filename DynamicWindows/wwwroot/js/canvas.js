@@ -16,6 +16,7 @@ class Canvas {
     _onResizeMouseDownEvent;
     _onResizeMouseMoveEvent;
     _onResizeMouseUpEvent;
+    _onCanvasClickEvent;
     _onWrapperMouseLeaveEvent;
     _onCloseClickEvent;
 
@@ -73,6 +74,7 @@ class Canvas {
         this._onResizeMouseMoveEvent = this.onResizeMouseMove.bind(this);
         this._onResizeMouseUpEvent = this.onResizeMouseUp.bind(this);
 
+        this._onCanvasClickEvent = this.onCanvasClick.bind(this);
         this._onWrapperMouseLeaveEvent = this.onWrapperMouseLeave.bind(this);
         this._onCloseClickEvent = this.onCloseClick.bind(this);
     }
@@ -86,6 +88,7 @@ class Canvas {
         this._wrapper.addEventListener('mousemove', this._onResizeMouseMoveEvent);
         this._wrapper.addEventListener('mouseup', this._onResizeMouseUpEvent);
 
+        this._canvas.addEventListener('click', this._onCanvasClickEvent);
         this._wrapper.addEventListener('mouseleave', this._onWrapperMouseLeaveEvent);
         this._buttonClose.addEventListener('click', this._onCloseClickEvent);
     }
@@ -99,18 +102,19 @@ class Canvas {
         this._wrapper.removeEventListener('mousemove', this._onResizeMouseMoveEvent);
         this._wrapper.removeEventListener('mouseup', this._onResizeMouseUpEvent);
 
+        this._canvas.removeEventListener('click', this._onCanvasClickEvent);
         this._wrapper.removeEventListener('mouseleave', this._onWrapperMouseLeaveEvent);
         this._buttonClose.removeEventListener('click', this._onCloseClickEvent);
     }
 
     onMouseDown(event) {
-        this._windowX = event.offsetX;
-        this._windowY = event.offsetY;
         this._wrapper.appendChild(this._window); // reappend child to put it to the end of the list
     }
 
     onTopbarMouseDown(event) {
         this._isWindowDrag = true;
+        this._windowX = event.offsetX;
+        this._windowY = event.offsetY;
         this.onMouseDown(event);
     }
 
@@ -129,6 +133,8 @@ class Canvas {
 
     onResizeMouseDown(event) {
         this._isWindowResize = true;
+        this._windowX = event.offsetX;
+        this._windowY = event.offsetY;
         this.onMouseDown(event);
     }
 
@@ -144,6 +150,10 @@ class Canvas {
 
     onResizeMouseUp(event) {
         this._isWindowResize = false;
+    }
+
+    onCanvasClick(event) {
+        this.onMouseDown(event);
     }
 
     onWrapperMouseLeave(event) {
