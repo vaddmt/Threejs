@@ -40,7 +40,7 @@ class Canvas {
         this.initCanvas();
         this.initCamera();
         this.initRenderer();
-        //this.initControls();
+        this.initControls();
         this.initEvents();
 
         this.listenersAdd();
@@ -213,7 +213,7 @@ class Canvas {
 
         this._camera.dispose();
         this._renderer.dispose();
-        //this._controls.dispose();
+        this._controls.dispose();
     }
 }
 

@@ -14,7 +14,7 @@ class Camera {
 
         this._camera.position.x = 0;
         this._camera.position.y = 0;
-        this._camera.position.z = 0;
+        this._camera.position.z = -1000;
     }
 
     onResize(width, height) {

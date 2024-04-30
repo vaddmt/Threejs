@@ -9,6 +9,10 @@ class Controls {
         this._controls.enableZoom = true;
     }
 
+    update() {
+        this._controls.update();
+    }
+
     dispose() {
         this._controls.dispose();
     }
