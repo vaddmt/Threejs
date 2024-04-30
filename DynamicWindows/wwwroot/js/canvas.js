@@ -84,7 +84,7 @@ class Canvas {
     }
 
     initCamera() {
-        this._camera = new Camera();
+        this._camera = new Camera(this._canvas);
     }
 
     initRenderer() {
