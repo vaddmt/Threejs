@@ -13,7 +13,6 @@ function load() {
             reject(error);
         }
     });
-    scene.initialize();
 }
 
 function createCanvas(parameters) {

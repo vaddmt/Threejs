@@ -1,4 +1,10 @@
+import * as THREE from 'three';
 import { EventMetaData, EventType } from './events.js';
+import { Renderer } from './system/renderer.js';
+import { Camera } from './system/camera.js';
+import { Controls } from './system/controls.js';
+import { population } from './common/population.js';
+import { scene } from './common/scene.js';
 
 class Canvas {
     _id;
@@ -9,6 +15,9 @@ class Canvas {
     _resize;
     _buttonClose;
     _wrapper;
+
+    _camera;
+    _renderer;
 
     _onTopbarMouseDownEvent;
     _onTopbarMouseMoveEvent;
@@ -29,9 +38,18 @@ class Canvas {
         this._id = parameters.id;
 
         this.initCanvas();
+        this.initCamera();
+        this.initRenderer();
+        //this.initControls();
         this.initEvents();
 
         this.listenersAdd();
+
+        this._gameloop = () => {
+            this._renderer.render();
+            this._animationFrame = requestAnimationFrame(this._gameloop);
+        }
+        this._gameloop();
     }
 
     initCanvas() {
@@ -63,6 +81,18 @@ class Canvas {
 
         this._wrapper = document.getElementById('mainWrapper');
         this._wrapper.appendChild(this._window);
+    }
+
+    initCamera() {
+        this._camera = new Camera();
+    }
+
+    initRenderer() {
+        this._renderer = new Renderer(this._canvas, this._camera);
+    }
+
+    initControls() {
+        this._controls = new Controls(this._camera, this._renderer);
     }
 
     initEvents() {
@@ -145,6 +175,13 @@ class Canvas {
             const height = event.clientY - this._windowY - boundingRect.top;
             this._window.style.width = width + 'px';
             this._window.style.height = height + 'px';
+
+            // -2 for borders
+            const canvasWidth = width - 2;
+            const canvasHeight = height - this._topbar.offsetHeight - 2;
+
+            this._camera.onResize(canvasWidth, canvasHeight);
+            this._renderer.onResize(canvasWidth, canvasHeight);
         }
     }
 
@@ -173,6 +210,10 @@ class Canvas {
         this.listenersRemove();
 
         this._wrapper.removeChild(this._window);
+
+        this._camera.dispose();
+        this._renderer.dispose();
+        //this._controls.dispose();
     }
 }
 
