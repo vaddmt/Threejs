@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import * as UTILS from '../utilities.js';
+import { population } from './population.js';
 
 class Scene {
     _scene; // threejs scene
@@ -19,12 +20,13 @@ class Scene {
     }
 
     build() {
-        this._scene.add(this._light);
+        this._scene.children = [];
 
-        const geometry = new THREE.BoxGeometry(500, 500, 500);
-        const material = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-        const mesh = new THREE.Mesh(geometry, material);
-        this._scene.add(mesh);
+        this._scene.add(this._light);
+        
+        population._meshes.forEach(mesh => {
+            this._scene.add(mesh._threejsGroup);
+        });
     }
 }
 
