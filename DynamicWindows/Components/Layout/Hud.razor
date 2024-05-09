@@ -1,0 +1,68 @@
+﻿
+<style>
+    .controlPanelTop {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: inline-flex;
+        flex-direction: row;
+    }
+
+        .controlPanelTop > * {
+            margin-top: 0.2rem;
+            margin-right: 0.2rem;
+        }
+
+    .controlPanelLeft {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: inline-flex;
+        flex-direction: column;
+    }
+
+        .controlPanelLeft > * {
+            margin-top: 0.2rem;
+            margin-left: 0.2rem;
+        }
+</style>
+
+@if (ViewModel is null)
+{
+    return;
+}
+
+<div class="controlPanelTop">
+    <Button 
+        Icon=@("<i class='material-symbols-sharp'>undo</i>")
+        OnClick="() => {}" 
+    />
+
+    <Button 
+        Icon=@("<i class='material-symbols-sharp'>redo</i>")
+        OnClick="() => {}" 
+    />
+</div>
+
+<div class="controlPanelLeft">
+    <Button 
+        Icon=@("<i class='material-symbols-sharp'>add</i>")
+        OnClick="ViewModel.AddCanvas" 
+    />
+
+    <Button 
+        Icon=@("<i class='material-symbols-sharp'>deployed_code</i>")
+        OnClick="ViewModel.CmdLoadCube" 
+    />
+</div>
+
+@code {
+    [Parameter]
+    public JsViewModel? ViewModel { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+    }
+}

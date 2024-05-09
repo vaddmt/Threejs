@@ -88,36 +88,28 @@
         }
 </style>
 
-@if (JsViewModel is null)
+@if (ViewModel is null)
 {
     return;
 }
 
-<div id="mainWrapper" @onchange="JsViewModel.ReadEvent">
+<div id="mainWrapper" @onchange="ViewModel.ReadEvent">
     <canvas id="mainCanvas" class="mainCanvas"></canvas>
 </div>
 
-<Button 
-    Icon=@("<i class='material-symbols-sharp'>add</i>")
-    OnClick="JsViewModel.AddCanvas" 
-/>
-
-<Button 
-    Icon=@("<i class='material-symbols-sharp'>deployed_code</i>")
-    OnClick="JsViewModel.CmdLoadCube" 
-/>
+<Hud ViewModel=@ViewModel />
 
 @code {
-    private JsViewModel? JsViewModel;
+    private JsViewModel? ViewModel;
 
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        JsViewModel = new JsViewModel(jsRuntime);
+        ViewModel = new JsViewModel(jsRuntime);
     }
 
     void IDisposable.Dispose()
     {
-        JsViewModel?.Dispose();
+        ViewModel?.Dispose();
     }
 }
