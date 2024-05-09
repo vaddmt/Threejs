@@ -1,4 +1,6 @@
 ﻿using DynamicWindows.Models;
+using DynamicWindows.Models.Enums;
+using DynamicWindows.Utilities;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.JSInterop;
 using System.Text.Json;
@@ -74,7 +76,7 @@ namespace DynamicWindows.ViewModels
                     Id = key
                 };
 
-                IJSObjectReference jsCanvas = await _jsModule.InvokeAsync<IJSObjectReference>("createCanvas", window);
+                IJSObjectReference jsCanvas = await _jsModule.InvokeAsync<IJSObjectReference>("create", window);
                 _jsWindows.Add(key, new JsWindowViewModel(window, jsCanvas));
             }
             catch
@@ -91,6 +93,20 @@ namespace DynamicWindows.ViewModels
             await Task.CompletedTask;
         }
 
+        public async void CmdLoadCube()
+        {
+            if (_jsModule is null)
+            {
+                return;
+            }
+
+            await _jsModule.InvokeVoidAsync("command", new JsCommandModel()
+            {
+                Type = ECommandType.Load,
+                Argument = Primitives.Cube
+            });
+        }
+
         public async void ReadEvent()
         {
             if (_jsModule is null)
@@ -98,7 +114,7 @@ namespace DynamicWindows.ViewModels
                 return;
             }
 
-            string json = await _jsModule.InvokeAsync<string>("readCanvasEvent");
+            string json = await _jsModule.InvokeAsync<string>("readEvent");
             JsEventModel? jsEvent = JsonSerializer.Deserialize<JsEventModel>(json);
             
             if (jsEvent is null)

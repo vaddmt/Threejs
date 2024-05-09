@@ -1,5 +1,6 @@
 import { Canvas } from './canvas.js';
 import * as EVENT from './events.js';
+import { commandManager } from './command/command_manager.js';
 import { population } from './common/population.js';
 import { scene } from './common/scene.js';
 
@@ -15,7 +16,7 @@ function load() {
     });
 }
 
-function createCanvas(parameters) {
+function create(parameters) {
     return new Promise((resolve, reject) => {
         try {
             resolve(new Canvas(parameters));
@@ -25,10 +26,14 @@ function createCanvas(parameters) {
     });
 }
 
-function readCanvasEvent() {
+function command(parameters) {
+    commandManager.execute(parameters);
+}
+
+function readEvent() {
     const json = JSON.stringify(EVENT.EventMetaData);
     EVENT.clear();
     return json;
 }
 
-export { load, createCanvas, readCanvasEvent }
+export { load, create, command, readEvent }

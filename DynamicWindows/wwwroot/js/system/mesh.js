@@ -9,7 +9,7 @@ class Mesh {
     _threejsGroupMesh;
     _threejsGroupVertices;
     constructor(mesh) {
-        this._indices = mesh.triangles;
+        this._indices = mesh.indices;
         this._vertices = mesh.vertices;
 
         this._threejsGroup = new THREE.Group();
