@@ -12,7 +12,9 @@ class Population {
     }
 
     add(mesh) {
+        const index = this._meshes.length;
         this._meshes.push(mesh);
+        return index;
     }
 
     remove(mesh) {

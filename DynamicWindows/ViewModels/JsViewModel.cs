@@ -93,6 +93,32 @@ namespace DynamicWindows.ViewModels
             await Task.CompletedTask;
         }
 
+        public async void CmdUndo()
+        {
+            if (_jsModule is null)
+            {
+                return;
+            }
+
+            await _jsModule.InvokeVoidAsync("command", new JsCommandModel()
+            {
+                Type = ECommandType.Undo
+            });
+        }
+
+        public async void CmdRedo()
+        {
+            if (_jsModule is null)
+            {
+                return;
+            }
+
+            await _jsModule.InvokeVoidAsync("command", new JsCommandModel()
+            {
+                Type = ECommandType.Redo
+            });
+        }
+
         public async void CmdLoadCube()
         {
             if (_jsModule is null)

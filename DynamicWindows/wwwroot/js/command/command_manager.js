@@ -1,7 +1,9 @@
 import * as COMMAND from './command.js';
 
 const COMMAND_TYPE = {
-    Load: 0,
+    Undo: 0,
+    Redo: 1,
+    Load: 2,
 }
 class CommandManager {
     _undoStack;
@@ -13,6 +15,15 @@ class CommandManager {
     }
 
     execute(args) {
+        if (COMMAND_TYPE.Undo === args.type) {
+            this.undo();
+            return;
+        }
+        if (COMMAND_TYPE.Redo === args.type) {
+            this.redo();
+            return;
+        }
+
         let command = undefined;
         switch (args.type) {
             case COMMAND_TYPE.Load:

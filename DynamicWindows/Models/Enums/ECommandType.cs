@@ -2,6 +2,8 @@
 {
     public enum ECommandType
     {
-        Load = 0,
+        Undo = 0,
+        Redo = 1,
+        Load = 2,
     }
 }
