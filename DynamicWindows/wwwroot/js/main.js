@@ -31,8 +31,7 @@ function command(parameters) {
 }
 
 function readEvent() {
-    const json = JSON.stringify(EVENT.EventMetaData);
-    EVENT.clear();
+    const json = JSON.stringify(EVENT.Stack.pop());
     return json;
 }
 

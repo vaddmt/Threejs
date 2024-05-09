@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { EventMetaData, EventType } from './events.js';
+import * as EVENT from './events.js';
 import { Renderer } from './system/renderer.js';
 import { Camera } from './system/camera.js';
 import { Controls } from './system/controls.js';
@@ -201,8 +201,11 @@ class Canvas {
     onCloseClick(event) {
         this.dispose();
 
-        EventMetaData.eventType = EventType.windowClose;
-        EventMetaData.canvasId = this._id;
+        EVENT.Stack.push(new EventMetaData(
+            EventType.windowClose,
+            this._id
+        ));
+
         this._wrapper.dispatchEvent(new Event('change'));
     }
 

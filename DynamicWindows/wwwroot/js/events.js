@@ -1,16 +1,17 @@
+export const Stack = [];
 
 export const EventType = {
     undefined: 0,
     windowClose: 1
 }
 
-export const EventMetaData = {
-    eventType: EventType.undefined,
-    canvasId: ''
-}
+class EventMetaData {
+    _type;
+    _canvasId; // who send event
 
-export function clear() {
-    EventMetaData.eventType = EventType.undefined
-    EventMetaData.canvasId = '';
+    constructor(type, canvasId) {
+        this._type = type;
+        this._canvasId = canvasId;
+    }
 }
 
