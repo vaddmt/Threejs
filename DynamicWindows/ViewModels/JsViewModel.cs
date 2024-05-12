@@ -1,7 +1,6 @@
 ﻿using DynamicWindows.Models;
 using DynamicWindows.Models.Enums;
 using DynamicWindows.Utilities;
-using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.JSInterop;
 using System.Text.Json;
 
@@ -130,6 +129,20 @@ namespace DynamicWindows.ViewModels
             {
                 Type = ECommandType.Load,
                 Argument = Primitives.Cube
+            });
+        }
+
+        public async void CmdLoadPyramid()
+        {
+            if (_jsModule is null)
+            {
+                return;
+            }
+
+            await _jsModule.InvokeVoidAsync("command", new JsCommandModel()
+            {
+                Type = ECommandType.Load,
+                Argument = Primitives.Pyramid
             });
         }
 
