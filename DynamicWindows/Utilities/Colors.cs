@@ -12,6 +12,7 @@
         public const int CanvasTopbar = 0x212529;
         public const int Text = 0xced4da;
         public const int Shadow = 0x212529;
+        public const int Explorer = 0x343a40;
 
         public static string Hex(int color) => $"#{color:X6}";
     }

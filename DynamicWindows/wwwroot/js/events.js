@@ -5,7 +5,7 @@ export const EventType = {
     windowClose: 1
 }
 
-class EventMetaData {
+export class EventMetaData {
     _type;
     _canvasId; // who send event
 

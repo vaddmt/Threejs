@@ -201,8 +201,8 @@ class Canvas {
     onCloseClick(event) {
         this.dispose();
 
-        EVENT.Stack.push(new EventMetaData(
-            EventType.windowClose,
+        EVENT.Stack.push(new EVENT.EventMetaData(
+            EVENT.EventType.windowClose,
             this._id
         ));
 
